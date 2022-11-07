@@ -1,12 +1,11 @@
-
 class TwoSum:
+    """Given an array of ints, return the indices of the 2 numbers that add up to a given target."""
 
     def __init__(self, arr: list, target: int) -> None:
         self.arr = arr
         self.target = target
         
-    def get_indices(self) -> list:
-
+    def get_indices_bf(self) -> list:
         if (self.arr is not None) and (len(self.arr) > 1):
             for p1 in range(len(self.arr) - 1):
                 value_p1 = self.arr[p1]
