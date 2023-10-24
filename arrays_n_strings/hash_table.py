@@ -55,7 +55,53 @@ class LinkedList:
                 s += ' -> ' + str(current_node.key) + ': ' + str(current_node.value)
                 current_node = current_node.next_node
             print(s)
-            
+
+class HashTable:
+    """
+    Hashtable whose keys are strings.
+    """
+    size = 1000
+    x = 31
+
+    def __init__(self):
+        self.table = [None for i in range(self.size)]
+
+    def hash_function(self, key: str) -> int:
+        """
+        Use polynomial and mod to compute hash function.
+        """
+        h = 0
+        # Horner's rule
+        for i, c in enumerate(key):
+            h += h*HashTable.x + ord(c)
+        return h % HashTable.size
+    
+    def insert(self, key: str, value):
+        h = self.hash_function(key)
+        ll = LinkedList() if self.table[h] is None else self.table[h]
+        ll.append(key, value)
+
+    def get(self, key: str):
+        h = self.hash_function(key)
+        ll = self.table[h]
+        if ll is not None:
+            node = ll.start
+            while node is not None:
+                if node.key == key:
+                    return node.value
+                node = node.next_node
+        return None
+
+    def delete(self, key: str):
+        h = self.hash_function(key)
+        ll = self.table[h]
+        if ll is not None:
+            ll.delete(key)
+
+    def display(self):
+        for item in self.table:
+            if item is not None:
+                item.display()
 
 if __name__ == "__main__":
     ll = LinkedList()
